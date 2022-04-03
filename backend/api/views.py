@@ -4,12 +4,12 @@ from rest_framework.decorators import api_view
 from products.models import Product
 from products.serializers import ProductSerializer
 
-@api_view(['GET'])
+@api_view(['POST'])
 def api_home(request, *args, **kwargs):
     data = {}
-    
-    instance = Product.objects.all().order_by("?").first()
-    if instance:
-        data = ProductSerializer(instance).data
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid():
+        instance = serializer.save()
+        data = instance.data
     return Response(data)
 
