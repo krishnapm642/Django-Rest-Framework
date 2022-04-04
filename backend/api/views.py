@@ -13,3 +13,4 @@ def api_home(request, *args, **kwargs):
         data = instance.data
     return Response(data)
 
+
